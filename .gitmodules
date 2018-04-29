@@ -1,0 +1,27 @@
+[submodule "bundle/tabmessage.vim"]
+	path = bundle/tabmessage.vim
+	url = https://github.com/thalesmello/tabmessage.vim
+[submodule "bundle/vim-csharp"]
+	path = bundle/vim-csharp
+	url = https://github.com/OrangeT/vim-csharp.git
+[submodule "bundle/junegunn-rainbow_parentheses.vim"]
+	path = bundle/junegunn-rainbow_parentheses.vim
+	url = https://github.com/junegunn/rainbow_parentheses.vim
+[submodule "bundle/vim-clojure-static"]
+	path = bundle/vim-clojure-static
+	url = https://github.com/guns/vim-clojure-static
+[submodule "bundle/vim-fakeclip"]
+	path = bundle/vim-fakeclip
+	url = https://github.com/congma/vim-fakeclip.git
+[submodule "bundle/xterm-color-table.vim"]
+	path = bundle/xterm-color-table.vim
+	url = https://github.com/guns/xterm-color-table.vim
+[submodule "bundle/vim-javascript"]
+	path = bundle/vim-javascript
+	url = https://github.com/pangloss/vim-javascript.git
+[submodule "bundle/vim-ragtag"]
+	path = bundle/vim-ragtag
+	url = https://github.com/tpope/vim-ragtag
+[submodule "bundle/vim-yaml"]
+	path = bundle/vim-yaml
+	url = https://github.com/stephpy/vim-yaml
