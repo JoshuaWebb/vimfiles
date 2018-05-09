@@ -14,7 +14,7 @@ set termguicolors
 "colorscheme hybrid
 "highlight Normal ctermbg=NONE
 "highlight nonText ctermbg=NONE
-"highlight Error ctermbg=1 
+"highlight Error ctermbg=1
 colorscheme Asatte-No-Yoru
 highlight CharUnderCursor cterm=reverse
 
@@ -32,15 +32,10 @@ set incsearch
 " whitespace highlighting
 set listchars=eol:$,tab:->,trail:■,extends:>,precedes:<,space:·
 
-hi RegularSp ctermfg=23
+hi RegularSp ctermfg=23 guifg=#005f5f
 match RegularSp / /
-hi TrailingSp ctermfg=210
+hi TrailingSp ctermfg=210 guifg=#ff8787
 match TrailingSp / \+$/
-
-" leave the paren under the cursor in reverse
-" and set the matching paren to be black on dim grey
-hi MatchParen cterm=reverse ctermbg=none
-hi MatchParenMatched cterm=none ctermbg=242 ctermfg=233
 
 " always show statusline
 set laststatus=0
@@ -68,7 +63,7 @@ set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 " we can however do a termux paste
 " mapped by fakeclip
 let g:fakeclip_write_clipboard_command = "termux-clipboard-set"
-" chop the forced trailing newline, so it pastes in-place... 
+" chop the forced trailing newline, so it pastes in-place...
 let g:fakeclip_read_clipboard_command  = "termux-clipboard-get | head -c -1"
 " this performs slightly differently to the other registers... probably requires further investigation... look into termux source?? can we get `"+p` to act like `"ap` with the same yank? while still getting the 'correct' result for legit android copy.
 
