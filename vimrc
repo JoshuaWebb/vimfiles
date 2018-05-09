@@ -102,8 +102,9 @@ nmap £ :tabnew<CR>:e $MYVIMRC<CR>
 " and a file .tmp.xyz
 nmap ¶ :!([[ -x % ]] && ./% <bar><bar> echo "${BRed}% is not executable") <bar> tee .tmp.xyz<CR>
 
-" TODO: Make these wrap around like gt and gT
+" Modified version of
 " http://stackoverflow.com/a/14689310
+" which wraps around
 function! MoveToNextTab()
   "there is only one window
   if tabpagenr('$') == 1 && winnr('$') == 1
@@ -120,7 +121,11 @@ function! MoveToNextTab()
     split
   else
     close!
-    tabnew
+    if l:tab_nr <= tabpagenr('$')
+      tabnew
+    else
+      exe "0tabnew"
+    endif
   endif
   "opening current buffer in new window
   exe "b".l:cur_buf
@@ -133,6 +138,7 @@ function! MoveToPrevTab()
   endif
   "preparing new window
   let l:tab_nr = tabpagenr('$')
+  let l:win_count = winnr('$')
   let l:cur_buf = bufnr('%')
   if tabpagenr() != 1
     close!
@@ -142,7 +148,11 @@ function! MoveToPrevTab()
     split
   else
     close!
-    exe "0tabnew"
+    if l:win_count > 1
+      exe "0tabnew"
+    else
+      exe "$tabnew"
+    endif
   endif
   "opening current buffer in new window
   exe "b".l:cur_buf
