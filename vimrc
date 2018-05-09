@@ -212,3 +212,12 @@ function! Synstack()
 endfunc
 
 nmap ¿ :call Synstack()<CR>
+
+function! NREPL()
+  let l:port = system('cat ~/.lein/repl-port')
+
+  :silent! execute ':Connect nrepl://localhost:' . l:port
+endfunction
+
+nmap ® :call NREPL()<CR>
+nmap ¢ :%Eval<CR>
