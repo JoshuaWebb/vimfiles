@@ -28,3 +28,6 @@
 [submodule "bundle/vim-fireplace"]
 	path = bundle/vim-fireplace
 	url = https://github.com/tpope/vim-fireplace.git
+[submodule "bundle/syntax-cursor.vim"]
+	path = bundle/syntax-cursor.vim
+	url = https://github.com/JoshuaWebb/syntax-cursor.vim.git

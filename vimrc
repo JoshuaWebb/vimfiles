@@ -1,57 +1,6 @@
 " make the plugins under /bundles work
 execute pathogen#infect()
 
-" TODO: Use named constant for 1524891851
-" TODO: Split into a plugin / bundle
-" hack because termux cursor is always
-" a single color, so at least this way
-" we can set the ctermfg
-function! s:Highlight_Char_Under_Cursor()
-  silent! call matchdelete(1524891851)
-  if pumvisible() || (&t_Co < 8 && !has("gui_running"))
-    return
-  endif
-  let c_lnum = line('.')
-  let c_col = col('.')
-
-  call matchaddpos('CharUnderCursor', [[c_lnum, c_col]], 11, 1524891851)
-endfunction
-
-function! s:No_Highlight_Char_Under_Cursor()
-  silent! call matchdelete(1524891851)
-endfunction
-
-augroup cursor_highlight
-  autocmd!
-  autocmd InsertEnter * call s:No_Highlight_Char_Under_Cursor()
-  " hack to turn the cursor fully invisible
-  " when in Normal mode, this lets us implement
-  " the cursor purely using the background colour.
-  " * Doesn't work when you exit insert mode via
-  " <C-c>
-  autocmd VimEnter * let &t_ve=''
-  autocmd VimLeave * let &t_ve="\<Esc>[?25h"
-  autocmd InsertEnter * let &t_ve="\<Esc>[?25h"
-  autocmd InsertLeave * let &t_ve=''
-  autocmd CmdLineEnter * let &t_ve="\<Esc>[?25h"
-  autocmd CmdLineLeave * let &t_ve=''
-  autocmd CursorMoved,InsertLeave,WinEnter * call s:Highlight_Char_Under_Cursor()
-  " hack to temporarily toggle cursor on <C-z>
-  nnoremap <silent> <C-z> :let &t_ve="\033[?25h"<CR><C-z>:let &t_ve=''<CR>
-augroup END
-
-" Set IBeam shape in insert mode
-let &t_SI = "\<Esc>[6 q"
-" Underline shape in replace mode
-let &t_SR = "\<Esc>[4 q"
-" Set IBeam shape in normal mode
-" (closest thing to invisible that still works
-" in the command line)
-"     let &t_EI = "\<Esc>[?25h"
-" doesn't seem to work, presumably it is being
-" overridden by something.. &v_te(?)
-let &t_EI = "\<Esc>[6 q" 
-
 " Remove delay when escaping insert mode
 " also has other effects that I don't understand
 " at the moment.. if something is strange it could
