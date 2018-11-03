@@ -78,6 +78,8 @@ set statusline+=\•       " <literal •>
 set statusline+=%02c     " column number (0 padded) (minimum 2 digits)
 set statusline+=\        " padding
 
+let &showbreak='└'
+
 " don't have much space to work with
 " 2 will have to do.
 set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
@@ -192,7 +194,6 @@ nmap ¿ :call Synstack()<CR>
 
 function! NREPL()
   let l:port = system('cat ~/.lein/repl-port')
-
   :silent! execute ':Connect nrepl://localhost:' . l:port
 endfunction
 
