@@ -37,23 +37,46 @@ match RegularSp / /
 hi TrailingSp ctermfg=210 guifg=#ff8787
 match TrailingSp / \+$/
 
-" always show statusline
-set laststatus=0
+" TODO: Move to colorscheme?
+hi StatusLine cterm=reverse gui=reverse ctermfg=14 ctermbg=8 guifg=#91d1f1 guibg=#002722
+hi StatusLineNC cterm=reverse gui=reverse ctermfg=11 ctermbg=0 guifg=#656b73 guibg=#2a2b2c
+hi User1 ctermfg=14 ctermbg=0 guifg=#91d1f1 guibg=#272f3b
 
-"set statusline=
-"set statusline+=%#PmenuSel#
-"set statusline+=test
-"set statusline+=%#LineNr#
-"set statusline+=\ %f
-"set statusline+=%m
-"set statusline+=%=
-"set statusline+=%#1#
-"set statusline+=\ %y
-"set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
-"set statusline+=\[%{&fileformat}\]
-"set statusline+=\ %p%%
-"set statusline+=\ %l:%c
-"set statusline+=\ 
+" TODO: Link to pre-existing colours?
+function! SetStatusLineTint(color)
+  exe 'hi StatusLine guifg=' . a:color
+  exe 'hi User1 guifg=' . a:color
+  redraw
+endfunction
+
+function! ResetStatusLine()
+  hi StatusLine guifg=#91d1f1
+  hi User1 guifg=#91d1f1
+endfunction
+
+augroup status_line
+  autocmd!
+  autocmd InsertLeave * call ResetStatusLine()
+  autocmd InsertEnter * call SetStatusLineTint('#d1f171')
+  autocmd CmdLineEnter * call SetStatusLineTint('#f1d171')
+  autocmd CmdLineLeave * call ResetStatusLine()
+augroup END
+
+" always show statusline
+set laststatus=2
+
+set statusline=
+set statusline+=\        " padding
+set statusline+=%1*      " Color: User1
+set statusline+=\ %f     " filename
+set statusline+=%m\      " modified flag
+set statusline+=%=       " begin right alignment
+set statusline+=%0*      " Color: StatusLine
+set statusline+=\ %y     " filetype
+set statusline+=\ %l     " line number
+set statusline+=\•       " <literal •>
+set statusline+=%02c     " column number (0 padded) (minimum 2 digits)
+set statusline+=\        " padding
 
 " don't have much space to work with
 " 2 will have to do.
