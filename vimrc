@@ -1,3 +1,10 @@
+let g:pathogen_blacklist = []
+
+let s:disable_syntax_cursor = 0
+if s:disable_syntax_cursor
+  call add(g:pathogen_blacklist, 'syntax-cursor.vim')
+endif
+
 " make the plugins under /bundles work
 execute pathogen#infect()
 
@@ -6,6 +13,10 @@ execute pathogen#infect()
 " at the moment.. if something is strange it could
 " be caused by this.
 set timeoutlen=1000 ttimeoutlen=0
+
+" disable background clear so it uses the bg colour
+" from the theme
+set t_ut=
 
 set t_Co=256
 set background=dark
@@ -16,7 +27,11 @@ set termguicolors
 "highlight nonText ctermbg=NONE
 "highlight Error ctermbg=1
 colorscheme Asatte-No-Yoru
-highlight CharUnderCursor cterm=reverse
+
+" Needs to be applied after the colorscheme
+if !s:disable_syntax_cursor
+  highlight CharUnderCursor cterm=reverse
+endif
 
 filetype plugin indent on
 
@@ -84,12 +99,15 @@ let &showbreak='└'
 " 2 will have to do.
 set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 
+" Enable mouse support
+set mouse=a
+
 " this version of vim has no clipboard support =/
 " we can however do a termux paste
 " mapped by fakeclip
-let g:fakeclip_write_clipboard_command = "termux-clipboard-set"
+let g:fakeclip_write_clipboard_command = "clip.exe"
 " chop the forced trailing newline, so it pastes in-place...
-let g:fakeclip_read_clipboard_command  = "termux-clipboard-get | head -c -1"
+let g:fakeclip_read_clipboard_command  = "powershell.exe Get-Clipboard | head -c -2"  " termux-clipboard-get | head -c -1
 " this performs slightly differently to the other registers... probably requires further investigation... look into termux source?? can we get `"+p` to act like `"ap` with the same yank? while still getting the 'correct' result for legit android copy.
 
 " force no tab expansion when make file detected
@@ -117,10 +135,11 @@ augroup END
 " run current file, open result in new tab
 nmap © :w<CR>:silent !./% 2>&1 <bar> tee .tmp.xyz<CR>:tabnew<CR>:r .tmp.xyz<CR>:silent !rm .tmp.xyz<CR>:redraw!<CR>:setlocal buftype=nofile<CR>
 
-" source this file
-nmap ™ :so $MYVIMRC<CR>
-" edit this file in a new tab
-nmap £ :tabnew<CR>:e $MYVIMRC<CR>
+" These don't appear to work in WSL...
+" Ctrl + Numap 1   :source this file
+"nmap <C-k1> :so $MYVIMRC<CR>
+" Ctrl + Numpad 2  :edit this file in a new tab
+"nmap <C-k2> :tabnew<CR>:e $MYVIMRC<CR>
 
 " experiments
 " run current file and pipe results into stdout
