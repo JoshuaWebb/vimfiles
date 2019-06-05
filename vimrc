@@ -8,6 +8,9 @@ endif
 " make the plugins under /bundles work
 execute pathogen#infect()
 
+" enhanced pair matching (e.g. for ruby def/end pairs)
+runtime macros/matchit.vim
+
 " Remove delay when escaping insert mode
 " also has other effects that I don't understand
 " at the moment.. if something is strange it could
@@ -218,3 +221,9 @@ endfunction
 
 nmap ® :call NREPL()<CR>
 nmap ¢ :%Eval<CR>
+
+set tags+=.tags,tags
+
+" (the default leader key is backslash)
+" \ct - regenerate ruby tags
+nnoremap <leader>ct :silent ! ctags -R --languages=ruby --exclude=.git -f .tags<cr>:redraw!<cr>
