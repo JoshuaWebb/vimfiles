@@ -110,7 +110,7 @@ set mouse=a
 " mapped by fakeclip
 let g:fakeclip_write_clipboard_command = "clip.exe"
 " chop the forced trailing newline, so it pastes in-place...
-let g:fakeclip_read_clipboard_command  = "powershell.exe Get-Clipboard | head -c -2"  " termux-clipboard-get | head -c -1
+let g:fakeclip_read_clipboard_command  = "powershell.exe Get-ClipBoard | sed -e \"s/\r//\" | head -c -1"  " termux-clipboard-get | head -c -1
 " this performs slightly differently to the other registers... probably requires further investigation... look into termux source?? can we get `"+p` to act like `"ap` with the same yank? while still getting the 'correct' result for legit android copy.
 
 " force no tab expansion when make file detected
